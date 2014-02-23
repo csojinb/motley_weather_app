@@ -1,4 +1,4 @@
-<h1>Current conditions in {{ location }}</h1>
+<h2>Current conditions in {{ location }}</h2>
 
 {% if conditions %}
     <ul>
@@ -7,3 +7,9 @@
         {% endfor %}
     </ul>
 {% endif %}
+
+<form action="/current_conditions/" method="post">{% csrf_token %}
+    <h3>Enter location information to get weather for another location:</h3>
+{{ zip_form.as_p }}
+<input type="submit" value="Submit" />
+</form>
