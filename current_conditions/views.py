@@ -25,6 +25,7 @@ def index(request):
                                 'Feels Like' : r['current_observation']['feelslike_string'],
                                 'Dew Point' : r['current_observation']['dewpoint_string'],
                                 'Relative Humidity' : r['current_observation']['relative_humidity'],
+                                'Wind' : r['current_observation']['wind_string'],
                 }
                 location = r['current_observation']['observation_location']['full']
 
