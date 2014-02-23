@@ -18,10 +18,6 @@ def index(request):
             r = r.json()
 
             try:
-                # weather_description = {'weather' : r['current_observation']['weather'],
-                #                         'weather_icon_url' : r['current_observation']['icon_url'],
-                #                         'weather_icon_url_alt_text' : r['current_observation']['icon'],
-                # }
                 weather_description = r['current_observation']['weather']
                 weather_description_icon_url = r['current_observation']['icon_url']
 
@@ -50,9 +46,5 @@ def index(request):
 
     return render(request, 'current_conditions/index.html', {'zip_form': zip_form,
                                                                     })
-        
 
-       
-
-    ## !!! Change this page around so that I don't need to start with a default zip code!!
     
