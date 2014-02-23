@@ -1,6 +1,10 @@
 {% if conditions %}
 
-    <h2>Current conditions in {{ location }}</h2>
+    <h2>Current weather conditions in {{ location }}:</h2>
+
+    <img src= {{weather_description_icon_url}} alt = {{weather_description}}>
+    {{ weather_description }}
+
     <ul>
         {% for key, value in conditions.items %}
             <li>{{ key }}: {{ value }}</li>

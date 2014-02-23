@@ -6,8 +6,6 @@ from current_conditions.forms import LocationForm
 def index(request):
     current_temp = '70F'
     wunderground_url_base = 'http://api.wunderground.com/api/3bb1446cf63dc3d0/conditions/q/'
-    # default zip code
-    zip_code = 20009
 
     if request.method == 'POST':
         zip_form = LocationForm(request.POST)
@@ -20,14 +18,25 @@ def index(request):
             r = r.json()
 
             try:
+                # weather_description = {'weather' : r['current_observation']['weather'],
+                #                         'weather_icon_url' : r['current_observation']['icon_url'],
+                #                         'weather_icon_url_alt_text' : r['current_observation']['icon'],
+                # }
+                weather_description = r['current_observation']['weather']
+                weather_description_icon_url = r['current_observation']['icon_url']
+
                 conditions = {'Temperature' : r['current_observation']['temperature_string'],
                                 'Feels Like' : r['current_observation']['feelslike_string'],
+                                'Dew Point' : r['current_observation']['dewpoint_string'],
+                                'Relative Humidity' : r['current_observation']['relative_humidity'],
                 }
                 location = r['current_observation']['observation_location']['full']
 
                 return render(request, 'current_conditions/index.html', {'location' : location, 
                                                                     'conditions' : conditions,
                                                                     'zip_form' : zip_form,
+                                                                    'weather_description' : weather_description,
+                                                                    'weather_description_icon_url' : weather_description_icon_url
                                                                     })
             except:
                 error_msg = r['response']['error']['description']
