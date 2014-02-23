@@ -23,13 +23,22 @@ def index(request):
     r = requests.get(request_url)
     r = r.json()
 
-    conditions = {'Temperature' : r['current_observation']['temperature_string'],
-                    'Feels Like' : r['current_observation']['feelslike_string'],
-    }
-    location = r['current_observation']['observation_location']['full']
-    
-    ## !!! This part here will fail if the request doesn't go right, so you should figure out a way to handle that! :-)
-    return render(request, 'current_conditions/index.html', {'location' : location, 
+    try:
+        conditions = {'Temperature' : r['current_observation']['temperature_string'],
+                        'Feels Like' : r['current_observation']['feelslike_string'],
+        }
+        location = r['current_observation']['observation_location']['full']
+
+        return render(request, 'current_conditions/index.html', {'location' : location, 
                                                             'conditions' : conditions,
                                                             'zip_form' : zip_form,
                                                             })
+    except:
+        error_msg = r['response']['error']['description']
+
+        return render(request, 'current_conditions/index.html', {'zip_form': zip_form,
+                                                                'error_msg' : error_msg,
+                                                                })
+
+    ## !!! Change this page around so that I don't need to start with a default zip code!!
+    
