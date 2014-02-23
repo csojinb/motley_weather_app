@@ -1,0 +1,9 @@
+<h1>Current conditions in {{ location }}</h1>
+
+{% if conditions %}
+    <ul>
+        {% for key, value in conditions.items %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
